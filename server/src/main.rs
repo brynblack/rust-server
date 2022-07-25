@@ -1,10 +1,16 @@
-use std::{io::Read, net::TcpListener};
+use std::{
+    env::args,
+    io::{Read, Result},
+    net::TcpListener,
+};
 
-fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("0.0.0.0:8192")?;
-    let (mut stream, _) = listener.accept()?;
-    let mut buffer = String::new();
-    stream.read_to_string(&mut buffer)?;
-    println!("{}", buffer);
+fn main() -> Result<()> {
+    let args: Vec<String> = args().collect();
+    let listener = TcpListener::bind(&args[1])?;
+    for stream in listener.incoming() {
+        let mut buffer = String::new();
+        stream?.read_to_string(&mut buffer)?;
+        println!("{}", buffer);
+    }
     Ok(())
 }
