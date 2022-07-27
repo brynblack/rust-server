@@ -1,12 +1,9 @@
-use std::{
-    env::args,
-    io::{Result, Write},
-    net::TcpStream,
-};
+use std::{env::args, io::Write, net::TcpStream};
 
-fn main() -> Result<()> {
+fn main() {
     let args: Vec<String> = args().collect();
-    let mut stream = TcpStream::connect(&args[1])?;
-    stream.write(&args[2].as_bytes())?;
-    Ok(())
+    TcpStream::connect(&args[1])
+        .unwrap()
+        .write(&args[2].as_bytes())
+        .unwrap();
 }
