@@ -3,6 +3,7 @@ members = [
   "client",
   "server",
 ]
+resolver = "3"
 
 [profile.release]
 strip = true
